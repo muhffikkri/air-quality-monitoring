@@ -52,3 +52,6 @@
 
 # Credential
 include/secrets.h
+
+# Build
+output_build
