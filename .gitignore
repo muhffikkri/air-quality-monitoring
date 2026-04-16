@@ -42,7 +42,6 @@
 .gcc-flags.json
 .pio
 
-<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/c++,platformio
 
 ### VSCode
@@ -56,6 +55,3 @@ include/secrets.h
 
 # Build
 output_build
-=======
-# End of https://www.toptal.com/developers/gitignore/api/c++,platformio
->>>>>>> b3c3f0f3f747877ce0bf7bbf4b9020dc5f1a7617
