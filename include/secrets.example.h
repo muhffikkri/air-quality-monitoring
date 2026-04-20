@@ -2,8 +2,8 @@
 #define SECRETS_H
 
 // WiFi Credentials
-const char* WIFI_SSID = "NAMA_WIFI_KAMU";
-const char* WIFI_PASS = "PASSWORD_WIFI_KAMU";
+const char* WIFI_SSID = "ini nama wifi";
+const char* WIFI_PASS = "ini password wifi";
 
 // WhatsApp Notifier (CallMeBot)
 const char* WA_PHONE = "62812xxxx";
