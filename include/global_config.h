@@ -8,7 +8,7 @@
 // ==========================================
 // Sensor Analog
 #define PIN_MQ135      34  // GPIO34 (ADC1)
-#define PIN_MQ2        32  // GPIO32 (ADC1)
+#define PIN_MQ2        35  // GPIO35 (ADC1, input-only)
 
 // Output Lokal
 #define PIN_BUZZER     25  // GPIO25
