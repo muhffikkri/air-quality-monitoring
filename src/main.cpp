@@ -1,9 +1,9 @@
 /**
  * @file main.cpp
- * @brief Orchestrator utama sistem Monitoring Kualitas Udara (Briefcase Project).
- * @author Tim Capstone - Kelompok Briefcase
+ * @brief Orchestrator utama sistem Monitoring Kualitas Udara.
+ * @author Capstone Project - Air Quality Smart Monitoring System 
  * @version 1.0
- * @date 2026-04-16
+ * @date 16-04-2026
  * * @details
  * **Mekanisme Kerja**:
  * 1. Melakukan inisialisasi seluruh modul (Sensor dan Notifier).
@@ -21,10 +21,10 @@
 // ==========================================
 // INSTANSI OBJEK (Global Instances)
 // ==========================================
-/** @brief Objek global untuk manajemen sensor (Anggota A) */
+/** @brief Objek global untuk manajemen sensor */
 SensorManager g_sensors;  
 
-/** @brief Objek global untuk layanan komunikasi (Anggota B) */
+/** @brief Objek global untuk layanan komunikasi */
 Notifier g_notifier;      
 
 // ==========================================
@@ -46,7 +46,7 @@ unsigned long g_last_sampling_time_ms = 0;
  */
 void setup() {
   Serial.begin(115200);
-  Serial.println("\n[SYSTEM] Booting Air Quality Briefcase...");
+  Serial.println("\n[SYSTEM] Booting Air Quality Smart Monitoring...");
 
   // Inisialisasi LED Indikator
   pinMode(PIN_LED_STATUS, OUTPUT);
@@ -112,7 +112,7 @@ void loop() {
     }
 
   } else {
-    // Memberikan informasi progres pemanasan sensor ke user
+    // Memberikan informasi progres pemanasan sensor 
     static unsigned long last_print_ms = 0;
     if (millis() - last_print_ms >= 5000) {
       Serial.printf("[SYSTEM] Sensor warming up... %d s remaining.\n", 
