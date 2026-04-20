@@ -1,7 +1,6 @@
 /**
  * @file test_main.cpp
  * @brief Unit Testing untuk modul Notifier menggunakan framework Unity.
- * @author Tim Capstone - Kelompok Briefcase
  */
 
 #include <unity.h>
@@ -13,53 +12,49 @@
 // Instance global untuk pengujian
 Notifier g_test_notifier;
 
-/**
- * @brief Prosedur yang dijalankan sebelum setiap test case dimulai.
- * * **Initial State**: Objek Notifier mungkin dalam state sisa dari tes sebelumnya.
- * **Final State**: Objek Notifier diinisialisasi ulang, timer internal di-reset.
- * **Mekanisme**: Memanggil konstruktor Notifier.
- */
-void setUp(void) {
-  // Reset atau inisialisasi ulang objek jika diperlukan
-}
+
+void setUp(void) {}
+void tearDown(void) {}
 
 /**
- * @brief Prosedur yang dijalankan setelah setiap test case selesai.
+ * @test Verifikasi koneksi ke Access Point.
+ * **Mekanisme**: Memanggil ConnectWiFi dan menunggu hingga status WL_CONNECTED.
  */
-void tearDown(void) {
-  // Membersihkan resource
-}
-
-/**
- * @brief Menguji prosedur koneksi WiFi.
- * * **Initial State**: WiFi dalam keadaan terputus.
- * **Final State**: WiFi.status() harus mengembalikan WL_CONNECTED.
- * **Input**: Mengambil kredensial dari secrets.h.
- * **Output**: Status boolean koneksi.
- * **Mekanisme**: Memanggil ConnectWiFi() dan memverifikasi status hardware WiFi.
- */
-void test_wifi_connection_logic(void) {
+void TestWiFiConnection(void) {
   g_test_notifier.ConnectWiFi();
+
+  // Memberikan waktu toleransi koneksi maksimal 10 detik
+  int retry = 0;
+  while (WiFi.status() != WL_CONNECTED && retry < 20) {
+    delay(500);
+    retry++;
+  }
+
   TEST_ASSERT_EQUAL(WL_CONNECTED, WiFi.status());
 }
 
 /**
- * @brief Menguji mekanisme cooldown/rate-limit pengiriman WhatsApp.
- * * **Initial State**: Pesan pertama baru saja dikirim (last_wa_attempt diperbarui).
- * **Final State**: Pengiriman kedua dalam waktu singkat harus ditolak (return false).
- * **Input**: String pesan "Test 1" dan "Test 2".
- * **Output**: Boolean (True untuk pengiriman pertama, False untuk pengiriman kedua).
- * **Mekanisme**: 
- * 1. Kirim pesan pertama.
- * 2. Segera kirim pesan kedua.
- * 3. Verifikasi bahwa logika non-blocking menolak pengiriman kedua untuk mencegah spam.
+ * @test Verifikasi pembentukan URL untuk WhatsApp.
+ * **Mekanisme**: Memastikan fungsi SendWhatsAppAlert mengelola URL dengan benar.
  */
-void test_whatsapp_rate_limit_logic(void) {
-  // Skeleton: 
-  // bool first_attempt = g_test_notifier.SendWhatsAppAlert("Testing rate limit 1");
-  // bool second_attempt = g_test_notifier.SendWhatsAppAlert("Testing rate limit 2");
-  // TEST_ASSERT_TRUE(first_attempt);
-  // TEST_ASSERT_FALSE(second_attempt);
+void TestWhatsAppAlertReturnStatus(void) {
+  // Jika WiFi terhubung, ini harus mencoba mengirim dan mengembalikan status boolean
+  if (WiFi.status() == WL_CONNECTED) {
+    bool status = g_test_notifier.SendWhatsAppAlert("Testing Unity");
+    TEST_ASSERT_TRUE(status);
+  }
+}
+
+/**
+ * @test Menguji mekanisme cooldown/rate-limit pengiriman WhatsApp. 
+ * **Mekanisme**: Memastikan pengiriman pesan tidak bisa dilakukan secara terus menerus untuk menghindari spam
+ */
+void TestWhatsappRateLimitLogic(void) {
+  bool first_attempt = g_test_notifier.SendWhatsAppAlert("Testing rate limit 1");
+  bool second_attempt = g_test_notifier.SendWhatsAppAlert("Testing rate limit 2");
+
+  TEST_ASSERT_TRUE(first_attempt);
+  TEST_ASSERT_FALSE(second_attempt);
 }
 
 /**
@@ -70,25 +65,24 @@ void test_whatsapp_rate_limit_logic(void) {
  * **Output**: void (Dicek melalui pemantauan Serial/HTTP Code).
  * **Mekanisme**: Memanggil LogToThingSpeak() dan memverifikasi kode respon HTTP adalah 200.
  */
-void test_thingspeak_logging_success(void) {
+// void TestThingspeakLoggingSuccess(void) {
   // Skeleton:
   // Logika pengiriman data dummy dan verifikasi status sukses.
-}
+// }
 
 /**
  * @brief Fungsi utama untuk menjalankan unit test di ESP32.
  * **Mekanisme**: Menginisialisasi Unity, menjalankan test cases, dan melaporkan hasil.
  */
 void setup() {
-  // Jeda agar Serial Monitor siap menangkap output
   delay(2000);
 
   UNITY_BEGIN();
 
-  // Menjalankan daftar pengujian
-  RUN_TEST(test_wifi_connection_logic);
-  RUN_TEST(test_whatsapp_rate_limit_logic);
-  RUN_TEST(test_thingspeak_logging_success);
+  RUN_TEST(TestWiFiConnection);
+  RUN_TEST(TestWhatsAppAlertReturnStatus);
+  RUN_TEST(TestWhatsappRateLimitLogic);
+  // RUN_TEST(TestThingspeakLoggingSuccess);
 
   UNITY_END();
 }
