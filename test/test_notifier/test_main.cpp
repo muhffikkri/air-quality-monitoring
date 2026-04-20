@@ -7,6 +7,8 @@
 #include <unity.h>
 #include "Notifier.h"
 #include "secrets.h"
+#include <Arduino.h>
+#include <WiFi.h>
 
 // Instance global untuk pengujian
 Notifier g_test_notifier;
