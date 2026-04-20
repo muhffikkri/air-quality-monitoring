@@ -19,12 +19,7 @@ void setUp(void) {
   g_test_sensors.Begin();
 }
 
-/**
- * @brief Prosedur yang dijalankan setelah setiap test case.
- */
-void tearDown(void) {
-  // Skeleton: Membersihkan resource jika diperlukan.
-}
+void tearDown(void) {}
 
 /**
  * @test Menguji perhitungan AQI dengan input simulasi.
@@ -56,10 +51,12 @@ void TestWarmupInitialState(void) {
  * @brief Entry point untuk Unity test runner di ESP32.
  */
 void setup() {
-  delay(2000); // Jeda stabilisasi serial
+  delay(2000); 
   UNITY_BEGIN();
+
   RUN_TEST(TestAqiCalculationLogic);
   RUN_TEST(TestWarmupInitialState);
+
   UNITY_END();
 }
 
