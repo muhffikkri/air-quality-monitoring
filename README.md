@@ -1,7 +1,3 @@
-Tentu, ini adalah draf **README.md** profesional yang disusun untuk keperluan repositori GitHub proyek Tugas Akhir kamu. Dokumentasi ini mencakup visi proyek, aspek teknis, hingga prosedur pengujian dengan standar industri.
-
----
-
 # 🌬️ Air Quality Monitoring Briefcase (AQM-BIFCAS-001)
 
 Sistem monitoring kualitas udara portabel berbasis IoT yang dirancang untuk mendeteksi kadar CO2 dan gas berbahaya secara _real-time_ dengan fitur peringatan dini melalui WhatsApp.
@@ -10,11 +6,11 @@ Sistem monitoring kualitas udara portabel berbasis IoT yang dirancang untuk mend
 
 ## 📌 1. Ikhtisar Proyek
 
-Proyek ini dikembangkan sebagai tugas akhir kuliah untuk menjawab kebutuhan akan alat pemantau kualitas udara yang portabel dan mampu memberikan notifikasi instan. Menggunakan **ESP32** sebagai otak sistem, alat ini menggabungkan sensor gas seri MQ dengan layanan _cloud_ untuk pemantauan berkelanjutan.
+Proyek ini menggunakan **ESP32** sebagai otak sistem, alat ini menggabungkan sensor gas seri MQ dengan layanan _cloud_ untuk pemantauan berkelanjutan.
 
 ### **Fitur Utama:**
 
-- **Real-Time Monitoring:** Memantau CO2 (MQ-135) dan Gas/Asap (MQ-2) setiap detik.
+- **Real-Time Monitoring:** Memantau CO2 (MQ-135) dan Gas/Asap (MQ-2) setiap 10 detik.
 - **Edge Processing:** Menghitung skor AQI (_Air Quality Index_) langsung di perangkat.
 - **WhatsApp Alert:** Mengirimkan peringatan otomatis ke ponsel jika udara dalam kondisi bahaya.
 - **Cloud Logging:** Sinkronisasi data ke ThingSpeak untuk analisis historis.
@@ -83,7 +79,7 @@ Repositori ini mengikuti standar struktur proyek PlatformIO:
 
 1.  **Clone Repositori:**
     ```bash
-    git clone https://github.com/username/air-quality-monitoring.git
+    git clone https://github.com/muhffikkri/air-quality-monitoring.git
     ```
 2.  **Konfigurasi Kredensial:**
     - Salin `include/secrets.example.h` menjadi `include/secrets.h`.
@@ -115,12 +111,12 @@ pio test -e esp32dev
 
 ---
 
-## 👥 7. Tim Pengembang
+<!-- ## 👥 7. Tim Pengembang
 
 - **Anggota A:** Firmware Developer (Logic Sensor & Kalibrasi).
 - **Anggota B:** Cloud & Integration Developer (WiFi, WhatsApp, ThingSpeak).
 - **Anggota C:** System Orchestrator & Mechanical Designer (Main Loop & 3D Design).
 
----
+--- -->
 
-_Dibuat untuk memenuhi Tugas Akhir Informatika - Universitas Diponegoro._
+<!-- _Dibuat untuk memenuhi Tugas Akhir Informatika - Universitas Diponegoro._ -->
