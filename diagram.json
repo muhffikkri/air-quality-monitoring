@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "author": "Muhammad Fikri - HMIF UNDIP",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp32", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led_status",
+      "top": -3.6,
+      "left": 195.8,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "res1",
+      "top": 128.75,
+      "left": 124.8,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_mq135",
+      "top": 85.1,
+      "left": -182.6,
+      "attrs": { "label": "MQ-135 (CO2)" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_mq2",
+      "top": -10.9,
+      "left": -144.2,
+      "attrs": { "label": "MQ-2 (Smoke)" }
+    }
+  ],
+  "connections": [
+    [ "esp32:GND.1", "led_status:C", "black", [ "v0" ] ],
+    [ "esp32:D2", "res1:1", "green", [ "h0" ] ],
+    [ "res1:2", "led_status:A", "green", [ "v0" ] ],
+    [ "esp32:GND.1", "pot_mq135:GND", "black", [ "v0" ] ],
+    [ "esp32:3V3", "pot_mq135:VCC", "red", [ "v0" ] ],
+    [ "esp32:D34", "pot_mq135:SIG", "orange", [ "v0" ] ],
+    [ "esp32:GND.1", "pot_mq2:GND", "black", [ "v0" ] ],
+    [ "esp32:3V3", "pot_mq2:VCC", "red", [ "v0" ] ],
+    [ "esp32:D35", "pot_mq2:SIG", "yellow", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

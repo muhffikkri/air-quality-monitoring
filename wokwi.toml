@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'output_build/esp32dev/firmware.bin'
+elf = 'output_build/esp32dev/firmware.elf'
