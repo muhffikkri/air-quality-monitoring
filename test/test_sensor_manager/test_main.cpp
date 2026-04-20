@@ -5,6 +5,7 @@
 
 #include <unity.h>
 #include "SensorManager.h"
+#include "global_config.h"
 
 SensorManager g_test_sensors;
 
@@ -22,20 +23,18 @@ void setUp(void) {
 void tearDown(void) {}
 
 /**
- * @test Menguji perhitungan AQI dengan input simulasi.
- * **Mekanisme**: Memasukkan nilai ADC simulasi dan memverifikasi output 70/30.
- * **Input**: ADC CO2 = 2048 (~250 AQI), ADC Smoke = 1024 (~125 AQI).
- * **Ekspektasi**: (0.7 * 250) + (0.3 * 125) = 175 + 37.5 = 212.5.
+ * @test Memverifikasi state awal SensorManager setelah Begin().
+ * **Mekanisme**: Mengecek nilai default, status kesiapan, dan countdown warm-up.
+ * **Ekspektasi**: Semua nilai sensor masih nol, belum siap, dan countdown tidak negatif.
  */
-void TestAqiCalculationLogic(void) {
-  // Catatan: Pastikan SensorManager memiliki method untuk 'inject' data simulasi
-  // atau ubah variabel internal menjadi protected untuk keperluan testing.
-  
-  // Asumsi hasil perhitungan berdasarkan rumus di SensorManager.cpp
-  float result = g_test_sensors.GetCombinedAQI();
-  
-  // Unity Assert untuk membandingkan float dengan toleransi (delta) 0.01
-  TEST_ASSERT_FLOAT_WITHIN(0.01, 0.0, result); // Awalnya harus 0 sebelum update
+void TestInitialSensorManagerState(void) {
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 0.0, g_test_sensors.GetCombinedAQI());
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 0.0, g_test_sensors.GetCO2());
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 0.0, g_test_sensors.GetSmoke());
+  TEST_ASSERT_FALSE(g_test_sensors.IsReady());
+  TEST_ASSERT_GREATER_OR_EQUAL_INT(0, g_test_sensors.GetWarmupCountdown());
+  TEST_ASSERT_LESS_OR_EQUAL_INT(SENSOR_WARMUP_TIME / 1000,
+                                g_test_sensors.GetWarmupCountdown());
 }
 
 /**
@@ -54,7 +53,7 @@ void setup() {
   delay(2000); 
   UNITY_BEGIN();
 
-  RUN_TEST(TestAqiCalculationLogic);
+  RUN_TEST(TestInitialSensorManagerState);
   RUN_TEST(TestWarmupInitialState);
 
   UNITY_END();
