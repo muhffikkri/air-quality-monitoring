@@ -14,6 +14,14 @@
  * @brief Kelas untuk menangani pembacaan, kalibrasi, dan kalkulasi AQI dari sensor MQ.
  */
 class SensorManager {
+ private:
+     //ATRIBUT
+     float aqiScore;
+     float rawCO2;
+     float rawSmoke;
+     unsigned long startTime;
+     bool isWarmReady;
+     
  public:
   /**
    * @brief Konstruktor untuk inisialisasi awal objek SensorManager.
@@ -95,12 +103,15 @@ class SensorManager {
    */
   int GetWarmupCountdown();
 
- private:
-  float aqi_score_;           ///< Skor AQI gabungan hasil perhitungan.
-  float raw_co2_val_;         ///< Nilai ADC mentah dari sensor CO2.
-  float raw_smoke_val_;       ///< Nilai ADC mentah dari sensor Gas/Asap.
-  unsigned long start_time_;  ///< Waktu saat Begin() dipanggil.
-  bool is_warm_ready_;        ///< Status kestabilan sensor.
+  //dummy untuk testing
+  void SetDummyData(float co2_val, float smoke_val);
+
+//  private:
+//   float aqi_score_;           ///< Skor AQI gabungan hasil perhitungan.
+//   float raw_co2_val_;         ///< Nilai ADC mentah dari sensor CO2.
+//   float raw_smoke_val_;       ///< Nilai ADC mentah dari sensor Gas/Asap.
+//   unsigned long start_time_;  ///< Waktu saat Begin() dipanggil.
+//   bool is_warm_ready_;        ///< Status kestabilan sensor.
 };
 
 #endif  // LIB_SENSORMANAGER_SENSORMANAGER_H_
